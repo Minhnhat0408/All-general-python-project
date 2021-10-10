@@ -1,48 +1,54 @@
-array = [19, -1, 18, 17, 2, 10, 3, 12, 5, 16, 4, 11, 8, 7, 6, 15, 12, 12, 2, 1, 6, 13, 14]
+# HE PHUONG TRINH
+x = input("So he phuong trinh : ")
 
 
-def largest_range(array):
-    array1 = []
-    [array1.append(i) for i in array if i not in array1]
-    array1.sort()
-    array_sort = []
-    while array1:
-        cmin = min(array1)
-        cmax = max(array1)
-        clist = []
-        for i in range(cmin,cmax+1):
-            if i == array1[0]:
-                clist.append(array1.pop(0))
-            else:
-                break
-        array_sort.append(clist)
-        index = max(enumerate(array_sort), key = lambda tup: len(tup[1]))
-    return [index[1][0],index[1][-1]]
+def matrix(number):
+    matrix = []
+    for i in range(1, int(number) + 1):
+        row = input(f'Nhap he so cua dong {i}: ')
+        roww = row.split()
+        matrix.append(roww)
+        #matrix.sort(reverse=True)
+    return matrix
 
 
-print(largest_range(array))
+def algorithm(matrix):
+    i = 0
+    i1 = 0
+    while i1 < int(x) - 1:
+        # print(matrix)
+        if float(matrix[i1][i1]) == 0:
+            tg = matrix[i1 + 1]
+            matrix[i1 + 1] = matrix[i1]
+            matrix[i1] = tg
+        s1 = float(matrix[i + 1][i1]) / float(matrix[i1][i1])
+        for j in range(0, int(x) + 1):
+            matrix[i + 1][j] = float(matrix[i + 1][j]) - float(matrix[i1][j]) * s1
+        if i == int(x) - 2:
+            i1 += 1
+            i = i1
+        else:
+            i += 1
+    return matrix
+
+
+def result(laddermatrix, sohe):
+    i = sohe - 1
+    nghiem = []
+    while i >= 0:
+        a = float(laddermatrix[i][-1]) / float(laddermatrix[i][-2])
+        for z in reversed(laddermatrix):
+            if len(z) > 2:
+                z[-1] = float(z[-1]) - a * float(z[-2])
+                z.pop(-2)
+        nghiem.append(round(a, 2))
+        i -= 1
+    [print(f"Gia tri cua x{a+1} : {b}") for a,b in enumerate(nghiem[::-1])]
+    return 0
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#result(algorithm(matrix(x)),int(x))
+name  = "minh"
+print("hello , ",name)
 
